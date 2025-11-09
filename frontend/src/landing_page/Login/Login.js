@@ -21,9 +21,12 @@ function Login() {
       );
       alert(response.data.message || "Login successful! 🎉");
       console.log("User Logged In:", response.data);
+
       // save token to localStorage for dashboard
       localStorage.setItem("token", response.data.token);
-      window.location.href = "/dashboard"; // redirect to dashboard
+
+      // redirect to dashboard
+      window.location.href = "https://zerodhaa-pl59.onrender.com";
     } catch (error) {
       if (error.response && error.response.data.message) {
         alert(error.response.data.message);
@@ -48,7 +51,6 @@ function Login() {
             required
           />
         </div>
-
         <div className="mb-3">
           <input
             type="password"
@@ -59,7 +61,6 @@ function Login() {
             required
           />
         </div>
-
         <button type="submit" className="btn btn-primary w-100">
           Login
         </button>

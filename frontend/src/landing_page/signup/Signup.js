@@ -8,26 +8,31 @@ function Signup() {
     password: "",
   });
 
-  // handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Use environment variable for backend URL
       const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE}/api/auth/register`,
+        "https://zerodha-uj7z.onrender.com/api/auth/register", // deployed backend URL
         formData
       );
       alert(response.data.message || "Signup successful! 🎉");
       console.log("User Registered:", response.data);
+
+      // save token to localStorage for dashboard if backend returns
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      }
+
+      // redirect to dashboard
+      window.location.href = "https://zerodhaa-pl59.onrender.com";
     } catch (error) {
       if (error.response && error.response.data.message) {
-        alert(error.response.data.message); // e.g., Email already registered
+        alert(error.response.data.message); 
       } else {
         alert("Signup failed! ❌ Please try again.");
       }
@@ -49,7 +54,6 @@ function Signup() {
             required
           />
         </div>
-
         <div className="mb-3">
           <input
             type="email"
@@ -60,7 +64,6 @@ function Signup() {
             required
           />
         </div>
-
         <div className="mb-3">
           <input
             type="password"
@@ -71,7 +74,6 @@ function Signup() {
             required
           />
         </div>
-
         <button type="submit" className="btn btn-primary w-100">
           Sign Up
         </button>
