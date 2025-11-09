@@ -18,15 +18,16 @@ function Signup() {
     e.preventDefault();
 
     try {
+      // Use environment variable for backend URL
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${process.env.REACT_APP_API_BASE}/api/auth/register`,
         formData
       );
       alert(response.data.message || "Signup successful! 🎉");
       console.log("User Registered:", response.data);
     } catch (error) {
       if (error.response && error.response.data.message) {
-        alert(error.response.data.message); // shows “Email already registered!”
+        alert(error.response.data.message); // e.g., Email already registered
       } else {
         alert("Signup failed! ❌ Please try again.");
       }
